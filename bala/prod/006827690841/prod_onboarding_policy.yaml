@@ -113,7 +113,20 @@ Resources:
                     - iam:DetachRolePolicy
                     Effect: Allow
                     Resource: arn:aws:iam::*:*
-
+                -    
+                    Action:
+                    - elasticloadbalancing:AddTags
+                    - elasticloadbalancing:ApplySecurityGroupsToLoadBalancer
+                    - elasticloadbalancing:AttachLoadBalancerToSubnets
+                    - elasticloadbalancing:ConfigureHealthCheck
+                    - elasticloadbalancing:CreateLoadBalancer
+                    - elasticloadbalancing:CreateLoadBalancerListeners
+                    - elasticloadbalancing:SetLoadBalancerListenerSSLCertificate
+                    - elasticloadbalancing:SetLoadBalancerPoliciesOfListener
+                    - elasticloadbalancing:DeleteLoadBalancer
+                    - elasticloadbalancing:DeleteRule
+                    Effect: Allow
+                    Resource: arn:aws:elasticloadbalancing:us-east-1:*:*
                 -    
                     Action:
                     - s3:CreateBucket
@@ -129,14 +142,40 @@ Resources:
                     - s3:DeleteObjectVersion
                     Effect: Allow
                     Resource: arn:aws:s3:::*
-
+                -    
+                    Action:
+                    - lambda:CreateFunction
+                    - lambda:InvokeFunction
+                    - lambda:ListFunctions
+                    - lambda:UpdateFunctionCode
+                    - lambda:UpdateFunctionConfiguration
+                    Effect: Allow
+                    Resource: arn:aws:lambda:us-east-1:*:*:*
                 -    
                     Action:
                     - sts:AssumeRole
                     - sts:AssumeRoleWithSAML 
                     Effect: Allow
                     Resource: arn:aws:iam::*:*
-
+                -    
+                    Action:
+                    - elasticache:AddTagsToResource
+                    - elasticache:CreateCacheCluster
+                    - elasticache:CreateCacheParameterGroup
+                    - elasticache:CreateCacheSecurityGroup
+                    - elasticache:CreateCacheSubnetGroup
+                    - elasticache:CreateReplicationGroup
+                    - elasticache:CreateSnapshot
+                    - elasticache:DescribeSnapshots
+                    - elasticache:IncreaseReplicaCount
+                    - elasticache:ModifyCacheCluster
+                    - elasticache:ModifyCacheSubnetGroup
+                    - elasticache:ModifyReplicationGroup
+                    - elasticache:DeleteCacheCluster
+                    - elasticache:DeleteReplicationGroup
+                    - elasticache:DeleteSnapshot 
+                    Effect: Allow
+                    Resource: "*"
                 -    
                     Action:
                     - ecs:CreateCluster

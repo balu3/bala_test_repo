@@ -144,10 +144,64 @@ Resources:
                     Resource: arn:aws:s3:::*
                 -    
                     Action:
+                    - lambda:CreateFunction
+                    - lambda:InvokeFunction
+                    - lambda:ListFunctions
+                    - lambda:UpdateFunctionCode
+                    - lambda:UpdateFunctionConfiguration
+                    Effect: Allow
+                    Resource: arn:aws:lambda:us-east-1:*:*:*
+                -    
+                    Action:
                     - sts:AssumeRole
                     - sts:AssumeRoleWithSAML 
                     Effect: Allow
                     Resource: arn:aws:iam::*:*
+                -    
+                    Action:
+                    - elasticache:AddTagsToResource
+                    - elasticache:CreateCacheCluster
+                    - elasticache:CreateCacheParameterGroup
+                    - elasticache:CreateCacheSecurityGroup
+                    - elasticache:CreateCacheSubnetGroup
+                    - elasticache:CreateReplicationGroup
+                    - elasticache:CreateSnapshot
+                    - elasticache:DescribeSnapshots
+                    - elasticache:IncreaseReplicaCount
+                    - elasticache:ModifyCacheCluster
+                    - elasticache:ModifyCacheSubnetGroup
+                    - elasticache:ModifyReplicationGroup
+                    - elasticache:DeleteCacheCluster
+                    - elasticache:DeleteReplicationGroup
+                    - elasticache:DeleteSnapshot 
+                    Effect: Allow
+                    Resource: "*"
+                -    
+                    Action:
+                    - ecs:CreateCluster
+                    - ecs:CreateService
+                    - ecs:CreateTaskSet
+                    - ecs:DeregisterContainerInstance
+                    - ecs:DeregisterTaskDefinition
+                    - ecs:DescribeClusters
+                    - ecs:ListClusters
+                    - ecs:ListContainerInstances
+                    - ecs:ListServices
+                    - ecs:ListTaskDefinitions
+                    - ecs:ListTasks
+                    - ecs:RegisterContainerInstance
+                    - ecs:RegisterTaskDefinition
+                    - ecs:RunTask
+                    - ecs:StartTask
+                    - ecs:StopTask
+                    - ecs:UpdateService
+                    - ecs:UpdateTaskSet
+                    - ecs:DeleteAttributes
+                    - ecs:DeleteCluster
+                    - ecs:DeleteService
+                    - ecs:DeleteTaskSet  
+                    Effect: Allow
+                    Resource: arn:aws:ecs:us-east-1:*:*
                 -    
                     Action: 
                     - eks:*    
