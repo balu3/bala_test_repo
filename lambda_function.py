@@ -24,7 +24,7 @@ def lambda_handler(event,context):
 	Key         = 'bala/output.txt'
 	stack_name  = 'sample-testing-stack'
 	s3_client.download_file(Bucket,Key,temp_folder)
-	
+	print event
 	with open(temp_folder) as file_name:
 		data    = json.load(file_name)
 		for acc_ids in data.keys():
@@ -33,11 +33,11 @@ def lambda_handler(event,context):
 			#cft_response = session.cft_client.create_stack(StackSetName = 'sample-testing-stack',TemplateBody = 'https://'+Bucket+'s3.amazonaws.com'+str(data[acc_ids]),Parameters=[{'ParameterKey': 'AccountAlias','ParameterValue': 'tejatestingforlambda'},],Capabilities=['CAPABILITY_NAMED_IAM'])
 			sess_client = session.client('cloudformation',region_name='us-east-1')
 			stack_resp  = sess_client.list_stacks(StackStatusFilter=['CREATE_COMPLETE'])['StackSummaries']
-			print stack_resp
+			#print stack_resp
 			if stack_name not in stack_names(stack_resp): 
 			    cft_response = sess_client.create_stack(StackName=stack_name,TemplateURL = 'https://'+Bucket+'.s3.amazonaws.com'+str(data[acc_ids]),Parameters=[{'ParameterKey': 'AccountAlias','ParameterValue': 'tejatestingforlambda'},],Capabilities=['CAPABILITY_NAMED_IAM'])
-			    print cft_response
+			    #print cft_response
 			else:
 			    cft_response = sess_client.update_stack(StackName = stack_name,TemplateURL = 'https://'+Bucket+'.s3.amazonaws.com'+str(data[acc_ids]),Parameters=[{'ParameterKey': 'AccountAlias','ParameterValue': 'tejatestingforlambda'},],Capabilities=['CAPABILITY_NAMED_IAM'])
-			    print cft_response
+			    #print cft_response
 			    
