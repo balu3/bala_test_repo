@@ -24,7 +24,8 @@ def lambda_handler(event,context):
 	Key         = 'bala/output.txt'
 	stack_name  = 'sample-testing-stack'
 	s3_client.download_file(Bucket,Key,temp_folder)
-	print event
+	pipeline    =  boto3.client('codepipeline')
+	#print event
 	with open(temp_folder) as file_name:
 		data    = json.load(file_name)
 		for acc_ids in data.keys():
@@ -37,7 +38,9 @@ def lambda_handler(event,context):
 			if stack_name not in stack_names(stack_resp): 
 			    cft_response = sess_client.create_stack(StackName=stack_name,TemplateURL = 'https://'+Bucket+'.s3.amazonaws.com'+str(data[acc_ids]),Parameters=[{'ParameterKey': 'AccountAlias','ParameterValue': 'tejatestingforlambda'},],Capabilities=['CAPABILITY_NAMED_IAM'])
 			    #print cft_response
+			    pipe_resp=pipeline.put_job_success_result(jobId=event['CodePipeline.job']['id'])
 			else:
 			    cft_response = sess_client.update_stack(StackName = stack_name,TemplateURL = 'https://'+Bucket+'.s3.amazonaws.com'+str(data[acc_ids]),Parameters=[{'ParameterKey': 'AccountAlias','ParameterValue': 'tejatestingforlambda'},],Capabilities=['CAPABILITY_NAMED_IAM'])
 			    #print cft_response
+			    pipe_resp=pipeline.put_job_success_result(jobId=event['CodePipeline.job']['id'])	
 			    
